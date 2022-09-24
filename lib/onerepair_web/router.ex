@@ -1,5 +1,9 @@
 defmodule OnerepairWeb.Router do
   use OnerepairWeb, :router
+  use Pow.Phoenix.Router
+  use PowAssent.Phoenix.Router
+  use Pow.Extension.Phoenix.Router,
+      extensions: [PowResetPassword, PowEmailConfirmation]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -14,10 +18,41 @@ defmodule OnerepairWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
+  pipeline :skip_csrf_protection do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_secure_browser_headers
+  end
+
+  scope "/" do
+    pipe_through :skip_csrf_protection
+
+    pow_assent_authorization_post_callback_routes()
+  end
+
+  scope "/" do
+    pipe_through :browser
+
+    pow_routes()
+    pow_extension_routes()
+  end
+
   scope "/", OnerepairWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/", OnerepairWeb do
+    pipe_through [:browser, :protected]
+
+    resources "/jobs", JobController
   end
 
   # Other scopes may use custom stacks.

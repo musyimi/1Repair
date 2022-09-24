@@ -1,0 +1,68 @@
+<h1>Show Job</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @job.name %>
+  </li>
+
+  <li>
+    <strong>Contact:</strong>
+    <%= @job.contact %>
+  </li>
+
+  <li>
+    <strong>Model:</strong>
+    <%= @job.model %>
+  </li>
+
+  <li>
+    <strong>Imei:</strong>
+    <%= @job.imei %>
+  </li>
+
+  <li>
+    <strong>Serial:</strong>
+    <%= @job.serial %>
+  </li>
+
+  <li>
+    <strong>Fault:</strong>
+    <%= @job.fault %>
+  </li>
+
+  <li>
+    <strong>Etimate:</strong>
+    <%= @job.etimate %>
+  </li>
+
+  <li>
+    <strong>Missing screws:</strong>
+    <%= @job.missing_screws %>
+  </li>
+
+  <li>
+    <strong>Broken case:</strong>
+    <%= @job.broken_case %>
+  </li>
+
+  <li>
+    <strong>Tampered with:</strong>
+    <%= @job.tampered_with %>
+  </li>
+
+  <li>
+    <strong>Total:</strong>
+    <%= @job.total %>
+  </li>
+
+  <li>
+    <strong>Technician:</strong>
+    <%= @job.technician %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.job_path(@conn, :edit, @job) %></span> |
+<span><%= link "Back", to: Routes.job_path(@conn, :index) %></span>

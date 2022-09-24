@@ -101,6 +101,15 @@ defmodule OnerepairWeb do
     end
   end
 
+  def mailer_view do
+    quote do
+      use Phoenix.View, root: "lib/onerepair_web/templates",
+                        namespace: OnerepairWeb
+
+      use Phoenix.HTML
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """

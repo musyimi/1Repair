@@ -47,6 +47,23 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :onerepair, :pow,
+  user: Onerepair.Users.User,
+  repo: Onerepair.Repo,
+  web_module: OnerepairWeb,
+  extensions: [PowResetPassword, PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
+  mailer_backend: OnerepairWeb.Pow.Mailer
+
+config :onerepair, :pow_assent,
+  providers: [
+    github: [
+      client_id: "6957a8a66c53fb4e203f",
+      client_secret: "b00e83c6db4c70fafbd8e25778d5b99f1ada210a",
+      strategy: Assent.Strategy.Github
+    ]
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
