@@ -14,6 +14,10 @@ config :onerepair, OnerepairWeb.Endpoint, cache_static_manifest: "priv/static/ca
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :my_app, MyAppWeb.Pow.Mailer,
+  adapter: Swoosh.Adapters.Sendgrid,
+  api_key: "SG.x.x"
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
